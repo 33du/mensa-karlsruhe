@@ -12,6 +12,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -37,6 +39,7 @@ public class MainActivity extends FragmentActivity {
     public SwipeRefreshLayout swipeRefresh;
 
     private Button navButton;
+    private Button refreshButton;
 
     private static String selectedCanteen;
 
@@ -68,10 +71,11 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        Button refreshButton = findViewById(R.id.refresh_button);
+        refreshButton = findViewById(R.id.refresh_button);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                swipeRefresh.setRefreshing(true);
                 fragment.requestPlan();
             }
         });

@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -142,6 +143,7 @@ public class DisplayPlanFragment extends Fragment {
         if (plan.getCanteen(selectedCanteen).getDay(date) == null) {
             text.setText("Keine Informationen für diesen Tag.");
             text.setVisibility(View.VISIBLE);
+            ((MainActivity) getActivity()).swipeRefresh.setRefreshing(false);
             return;
         }
 
@@ -170,11 +172,6 @@ public class DisplayPlanFragment extends Fragment {
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 mealLayout.setPadding(50, 25, 50, 25);
-                /*
-                if (mealCount == line.getMeals().size() - 1) {
-                    mealLayout.setPadding(0, 25, 0, 25);
-                }
-                */
 
                 mealLayout.setClickable(true);
                 mealLayout.setFocusable(true);
@@ -247,6 +244,7 @@ public class DisplayPlanFragment extends Fragment {
 
         }
         linearLayout.setVisibility(View.VISIBLE);
+        ((MainActivity) getActivity()).swipeRefresh.setRefreshing(false);
     }
 
 
