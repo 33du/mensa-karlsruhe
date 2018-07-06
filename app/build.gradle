@@ -6,8 +6,8 @@ android {
         applicationId "com.oops.mensa"
         minSdkVersion 24
         targetSdkVersion 27
-        versionCode 4
-        versionName "0.5"
+        versionCode 6
+        versionName "0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

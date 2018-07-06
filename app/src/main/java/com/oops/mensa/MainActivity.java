@@ -68,15 +68,16 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        swipeRefresh = findViewById(R.id.swipe_refresh);
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        Button refreshButton = findViewById(R.id.refresh_button);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRefresh() {
+            public void onClick(View v) {
                 fragment.requestPlan();
-                swipeRefresh.setRefreshing(false);
             }
         });
-        swipeRefresh.setRefreshing(true);
+
+        swipeRefresh = findViewById(R.id.swipe_refresh);
+        swipeRefresh.setEnabled(false);
 
         title = findViewById(R.id.title_canteen);
         title.setText(Utility.convertCanteenName(selectedCanteen));

@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="#fff"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:text="Alle Mensen"/>
 
     </RelativeLayout>
