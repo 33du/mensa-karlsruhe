@@ -1,6 +1,8 @@
 package com.oops.mensa;
 
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,10 +11,13 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -211,7 +216,7 @@ public class DisplayPlanFragment extends Fragment {
                 mealLayout.addView(priceLayout, priceParams);
 
                 //meal name inside nameLayout
-                TextView mealName = new TextView(getActivity());
+                final TextView mealName = new TextView(getActivity());
                 RelativeLayout.LayoutParams mealParams = new RelativeLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 mealName.setText(meal.getMeal());
@@ -219,6 +224,32 @@ public class DisplayPlanFragment extends Fragment {
                 mealName.setTextColor(Color.BLACK);
                 mealName.setTextSize(16);
                 nameLayout.addView(mealName, mealParams);
+
+
+                //popup menu
+                mealLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+
+                        PopupMenu popup = new PopupMenu(getContext(), v);
+
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                                ClipData clip = ClipData.newPlainText(null, mealName.getText());
+                                clipboard.setPrimaryClip(clip);
+                                Toast.makeText(getContext(), "Copied!", Toast.LENGTH_SHORT).show();
+                                return true;
+                            }
+                        });
+                        popup.inflate(R.menu.popup);
+                        popup.setGravity(Gravity.RIGHT);
+                        popup.show();
+                        return true;
+                    }
+                });
+
 
                 //dish name inside nameLayout
                 if (!meal.getDish().equals("")) {
@@ -246,6 +277,7 @@ public class DisplayPlanFragment extends Fragment {
         linearLayout.setVisibility(View.VISIBLE);
         ((MainActivity) getActivity()).swipeRefresh.setRefreshing(false);
     }
+
 
 
     private Calendar parsePositionToDate(int position) {

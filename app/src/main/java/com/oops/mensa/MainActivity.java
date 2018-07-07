@@ -93,13 +93,11 @@ public class MainActivity extends FragmentActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        Log.d("DEBUG", "user: "+currentUser);
         if (currentUser == null) {
             mAuth.signInAnonymously()
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            Log.d("debug", "on complete listenr");
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                             } else {
